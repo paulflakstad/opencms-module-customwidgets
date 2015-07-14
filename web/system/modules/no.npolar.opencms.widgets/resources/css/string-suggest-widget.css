@@ -1,0 +1,11 @@
+/* 
+    Document   : string-suggest-widget
+    Author     : Paul-Inge Flakstad, Norwegian Polar Institute
+*/
+.ui-widget {
+    font-size:0.9em;
+}
+.stringsuggest-info {
+    color:#777 !important;
+    padding:0.4em !important;
+}

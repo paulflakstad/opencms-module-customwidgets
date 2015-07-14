@@ -1,3 +1,14 @@
+# NetBeans project files
+/nbproject/
+# Build files
+/build/
+/build.xml
+# Non-interesting stuff
+/src/conf/
+/web/META-INF/
+/web/WEB-INF/
+*string_suggest_widget_backup.js
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
