@@ -16,9 +16,12 @@ The data source, or “suggestions source”, is defined in the XSD where the wi
 
 ## Installation
 
-1. Install the OpenCms module no.npolar.opencms.widgets.
+1. Install the OpenCms module `no.npolar.opencms.widgets`.
 2. Update your OpenCms system by adding the following line in the `<widgets>` node in opencms-vfs.xml:
-`<widget class="no.npolar.opencms.widgets.StringSuggestWidget" alias="StringSuggestWidget" />`
+  
+  ```xml
+  <widget class="no.npolar.opencms.widgets.StringSuggestWidget" alias="StringSuggestWidget" />
+  ```
 3. Restart Tomcat. (Or redeploy the OpenCms webapp, or restart your non-Tomcat servlet container.)
 4. Good to go!
 
@@ -48,7 +51,7 @@ When employing the widget in an XSD, configuration is always required.
   
 - `uri_unique`
 
-  Optional. The URI to use for requesting a single unique entry from the service. This can be used to re-create the info box when re-editing a file that already has a previously stored value in the widget’s input field. The URI defined here needs to consist partially of that previously stored value. Use %(value) as a placeholder, indicating where to inject the stored value. E.g.: https://itunes.apple.com/search?term=%(value)
+  Optional. The URI to use for requesting a single unique entry from the service. This can be used to re-create the info box when re-editing a file that already has a previously stored value in the widget’s input field. The URI defined here needs to consist partially of that previously stored value. Use `%(value)` as a placeholder, indicating where to inject the stored value. E.g.: https://itunes.apple.com/search?term=%(value)
   
   *Do not use this setting in combination with `pname_unique`. (They are mutually exclusive.)*
 
@@ -93,15 +96,15 @@ When employing the widget in an XSD, configuration is always required.
 ### Example 1: Widget configuration settings.
 ```
 {
-uri: ‘http://api.service.com/person/?limit=30’,
-results: ‘%(feed.entries)’,
-extract: ‘%(email)’,
-pname_query: ‘q’,
-pname_unique: ‘q-email’,
-pname_callback: ‘callback’,
-tpl_suggestion: ‘<a>%(name)<br><em>%(jobtitle)</em></a>’,
-tpl_info: ‘<p><strong>%(name)</strong><br><em>%(jobtitle)</em></p>’,
-letters: 4
+  uri: ‘http://api.service.com/person/?limit=30’,
+  results: ‘%(feed.entries)’,
+  extract: ‘%(email)’,
+  pname_query: ‘q’,
+  pname_unique: ‘q-email’,
+  pname_callback: ‘callback’,
+  tpl_suggestion: ‘<a>%(name)<br><em>%(jobtitle)</em></a>’,
+  tpl_info: ‘<p><strong>%(name)</strong><br><em>%(jobtitle)</em></p>’,
+  letters: 4
 }
 ```
 
@@ -109,8 +112,8 @@ The configuration should be a JSON string.
 
 There are two approaches when adding configuration:
 
-1.	Define the settings inline, within the JSON string in the XSD.
-2.	Define the settings in a separate file, and reference this config file in the XSD.
+1. Define the settings inline, within the JSON string in the XSD.
+2. Define the settings in a separate file, and reference this config file in the XSD.
 
 Option 1 has some drawbacks; mainly the very length of the JSON string and the fact that the content must be XML-escaped.
 
@@ -121,7 +124,7 @@ Option 1 has some drawbacks; mainly the very length of the JSON string and the f
 
 As you can see, this isn’t very readable. Option 2, using a separate config file, is clearly a better approach. 
 
-### Example 3: Widget configuration in the XSD, using a settings file:
+### Example 3: Widget configuration in the XSD, using a settings file (recommended):
 
 ```xml
 <layout element=”MyInput” widget=”StringSuggestWidget” configuration=”{conf_uri:‘conf/my-settings.conf’}” />
@@ -132,6 +135,7 @@ Here, we’ve simply provided a URI to a file containing all the widget settings
 The content of the settings file should look like the JSON in Example 1. (No XML-escaping needed.) 
 
 Widget templates can also be defined using file references, like this:
+
 ```
 tpl_suggestion: { uri:’wtpl/my-suggestions.tpl’ }
 ```
@@ -265,10 +269,11 @@ In your template, apply the function value: `%(__function:myFunction)`.
 
 Similar to conditional selectors, you may also define an optional parameter string, which will be passed to the function.
 
-Example: %(function:myFunction[lang=__PROP[locale]&foo=bar])
+Example: `%(function:myFunction[lang=__PROP[locale]&foo=bar])`
 
 #### Totally confused?
-The widget includes an example function that does some console logging before returning an arbitrary string. See bottom of `string-suggest-widget-helpers.js` and read the comments.
+
+Included with the widget should be an example function that does some console logging before returning an arbitrary string. See bottom of `string-suggest-widget-helpers.js` and read the comments.
 
 ## Relative paths
 
@@ -312,4 +317,4 @@ Most notable potential issues:
 
 This widget was created for a specific use-case, but I have tried to make it flexible enough to be used elsewhere as well. Its flexibility remains untested in the wild though, and I'm sure the widget is lacking in options.
 
-If you have suggestions for improvement, please let me know.
+If you have suggestions for improvement, please let me know. :)
