@@ -229,7 +229,7 @@ Supported dynamic values:
 
   - `__PROP[locale]` => E.g.: “en”
   - `__PROP[collector.date]` => E.g.: “1415975400000”
-  - 
+
 - `__NOW[date-format]`
 
   Notation for a “current time” value, formatted using the given pattern (see java.text.SimpleDateFormat). “numeric” will produce a long representation.
