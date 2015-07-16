@@ -135,3 +135,139 @@ Widget templates can also be defined using file references, like this:
 ```
 tpl_suggestion: { uri:’wtpl/my-suggestions.tpl’ }
 ```
+
+## Syntax and format
+In this explanation, let’s assume the service responds with this JSON:
+```
+[
+{
+		“name”:”Jack Black”,
+		“email”:”jack.black@site.com”,
+		“jobtitle”:”Director”,
+		“image”: {
+			“uri”:”http://site.com/img/jack.jpg”
+			“alt”:”Jack Black, Director of Company Inc.”
+		},
+		“links”: [{
+			“lang”:”en”,
+			“rel”:”profile”,
+			“href”:”http://site.com/people/jack.black/”
+		},
+		{
+			“lang”:”de”,
+			“rel”:”profile”,
+			“href”:”http://site.com/de/leute/jack.black/”
+		}]
+}, 
+{
+		“name”:”Jaclyn White”,
+		“email”:”jaclyn.white@site.com”,
+		“jobtitle”:”Manager”,
+		“image”: {
+			“uri”:”http://site.com/img/jaclyn.jpg”
+			“alt”:”Jaclyn White, Manager of Company Inc.”
+		},
+		“links”: [{
+			“lang”:”en”,
+			“rel”:”profile”,
+			“href”:”http://site.com/people/jaclyn.white/”
+		},
+		{
+			“lang”:”de”,
+			“rel”:”profile”,
+			“href”:”http://site.com/de/leute/jaclyn.white/”
+		}]
+},
+	...
+]
+```
+
+This array of objects –  each object being a suggestion – is the result of a query. (Here, we can imagine e.g. that the user entered “jac” in the input field. The widget queried the service at http://api.service.com/?q=jac, and it replied with this JSON.)
+
+To use the widget, we must be able to reference the data in this JSON. We need some selectors.
+
+### Basic selectors
+
+Identifies single fields, or object properties, in a non-ambiguous manner. 
+
+For example, `%(email)` is a basic selector. It targets the field describing the e-mail address. Similarly, `%(image.uri)` targets the field describing the image URI.
+
+Basic selectors are the most common ones, and the most reliable ones, but they cannot be used to identify stuff in arrays, like the profile URI. E.g.: The `%(links.href)` selector matches 2 properties (= ambiguous) in each object. So, for arrays, we need a way to be more specific. That’s where conditional selectors come into play. 
+
+### Conditional selectors – picking from arrays
+
+A conditional selector can be used to target a property of a specific object in an array of objects. 
+
+The idea is that if we can safely assume that no objects are identical in *all of their properties*, we can single out one object by requiring certain values on its *set of properties*.
+
+Let’s take the selector %(links:href[lang=en&rel=profile]) and break it down. From left to right, it translates to: 
+
+1. From the `links` array
+2. select the `href` property from the object
+  a. whose `lang` property is “en”, AND
+  b. whose `rel` property is “profile”
+
+2a and 2b are the "conditional statements". (2b could have been omitted here – 2a alone would have been sufficient – but is included to show the syntax whenever multiple conditional statements are needed.) They allow us to target single objects in the array.
+
+Without conditional statements, we cannot target something in an array and expect anything good to come out of it. However, if the conditional statement is omitted, e.g. `%(links:href)`, then the selector will target the `href` property of the first object in the “links” array.
+
+Lastly, conditional selectors should be used only as the last part of a selector. E.g.: `%(links:href[lang=en])` will work, but `%(links:href[lang=en].someproperty)` won’t work.
+
+Dynamic values
+Dynamic values can be used to create flexible selectors that uses information available in (or determined via) the resource being edited – or by other means, like reading system information.
+Supported dynamic values:
+All dynamic value notations begin with a double underscore, followed by an uppercase identifier, followed (sometimes) by a parameter string wrapped in square braces. Currently supported:
+•	__PROP[property-name]
+Notation for a property value, as read from the resource being edited (possibly inherited).
+o	__PROP[locale] => E.g.: “en”
+o	__PROP[collector.date] => E.g.: “1415975400000”
+•	__NOW[date-format]
+Notation for a “current time” value, formatted using the given pattern (see java.text.SimpleDateFormat). “numeric” will produce a long representation.
+o	__NOW[yyyy] => Current year, e.g. “2014”
+o	__NOW[numeric] => Current time as numeric value (the long representation)
+•	__SELF
+Notation for the path to the resource being edited, e.g.: “/sites/mysite/my/file.html”.
+•	__CONTENT_LOCALE
+Shortcut for __PROP[locale] (described above).
+Example usage:
+•	%(links:href[lang=__PROP[locale])  will produce the selector:
+o	%(links:href[lang=en]) when editing resources with locale=en
+o	%(links:href[lang=de]) when editing resources with locale=de
+Function-provided values
+A value can be provided by a custom javascript function, typically using the suggestion / info box object currently being processed to produce something useful. 
+Your custom function should take an object and a string as arguments, and return a string: 
+function myFunction(/*Object*/currentObj, /*String*/params) {
+    return [a string];
+}
+Create a file named custom-functions.js in the js folder and place your function there. The widget will include this file, and any future module updates won’t overwrite its contents.
+In your template, apply the function value: %(__function:myFunction).
+Similar to conditional selectors, you may also define an optional parameter string, which will be passed to the function.
+Example: %(function:myFunction[lang=__PROP[locale]&foo=bar])
+Totally confused?
+The widget comes with an example function that does some console.log(...) before returning an arbitrary string. See bottom of string-suggest-widget-helpers.js and read the comments.
+
+
+Relative paths
+When referencing files in the widget configuration, you may use folder-relative URIs. These will be considered as relative to the widget module’s “resources” folder. 
+E.g.: If you provide the relative path tpl/mytemplate.tpl, it will be interpreted as /system/modules/no.npolar.opencms.widgets/resources/tpl/mytemplate.tpl.
+Module structure
+Installing this module will create a folder 
+/system/modules/no.npolar.opencms.widgets/ 
+containing all the module’s resources. 
+Subfolders overview:
+•	/lib 
+Contains a .jar file with the necessary Java classes.
+•	/resources
+Contains javascript and CSS files, inside the respective subfolders.
+•	/tpl
+Folder to place widget templates. A sample template should be included.
+•	/conf
+Folder to place widget configuration files. A sample configuration should be included.
+•	/classes
+Currently empty.
+Notes
+This widget is still in beta and very rough around the edges. 
+Most notable potential issues:
+•	ADE (front-end editing) is not supported
+•	Localization is not supported
+•	Error handling and code optimization is lacking / incomplete
