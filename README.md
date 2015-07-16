@@ -14,7 +14,7 @@ The widget can also be used standalone, outside of OpenCms.
 
 As the user types, the widget provides on-the-fly suggestions. Suggestions are fetched from an external source; a web service that accepts queries and responds in JSONP.
 
-If you have to use a data source that does not speak JSONP, consider writing a proxy. (An example proxy that wraps OpenCms site search is included with the widget.) To test the widget, you can use a publicly available service, like the [iTunes search API](https://itunes.apple.com/search?term=metallica).
+If you need to use a data source that doesn't fit these requirements, consider writing a proxy. (An example proxy that wraps OpenCms site search should be included in the OpenCms module.) To test the widget, you can use a publicly available service, like the [iTunes search API](https://itunes.apple.com/search?term=metallica).
 
 The data source, or “suggestions source”, is defined in the XSD where the widget is employed, as part of the widget’s configuration string. This makes the widget pluggable and interchangeable, and you can use it with a variety of data sources - only the configuration needs to change.
 
