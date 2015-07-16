@@ -213,33 +213,53 @@ Without conditional statements, we cannot target something in an array and expec
 
 Lastly, conditional selectors should be used only as the last part of a selector. E.g.: `%(links:href[lang=en])` will work, but `%(links:href[lang=en].someproperty)` won’t work.
 
-Dynamic values
-Dynamic values can be used to create flexible selectors that uses information available in (or determined via) the resource being edited – or by other means, like reading system information.
+### Dynamic values
+
+Dynamic values are used to create flexible selectors that uses information available in (or determined via) the resource being edited. Or by other means, like reading system information.
+
+All dynamic value notations begin with a double underscore, followed by an uppercase identifier, followed (sometimes) by a parameter string wrapped in square braces.
+
 Supported dynamic values:
-All dynamic value notations begin with a double underscore, followed by an uppercase identifier, followed (sometimes) by a parameter string wrapped in square braces. Currently supported:
-•	__PROP[property-name]
-Notation for a property value, as read from the resource being edited (possibly inherited).
-o	__PROP[locale] => E.g.: “en”
-o	__PROP[collector.date] => E.g.: “1415975400000”
-•	__NOW[date-format]
-Notation for a “current time” value, formatted using the given pattern (see java.text.SimpleDateFormat). “numeric” will produce a long representation.
-o	__NOW[yyyy] => Current year, e.g. “2014”
-o	__NOW[numeric] => Current time as numeric value (the long representation)
-•	__SELF
-Notation for the path to the resource being edited, e.g.: “/sites/mysite/my/file.html”.
-•	__CONTENT_LOCALE
-Shortcut for __PROP[locale] (described above).
-Example usage:
-•	%(links:href[lang=__PROP[locale])  will produce the selector:
-o	%(links:href[lang=en]) when editing resources with locale=en
-o	%(links:href[lang=de]) when editing resources with locale=de
-Function-provided values
-A value can be provided by a custom javascript function, typically using the suggestion / info box object currently being processed to produce something useful. 
-Your custom function should take an object and a string as arguments, and return a string: 
+- `__PROP[property-name]`
+  Notation for a property value, as read from the resource being edited (possibly inherited).
+
+  - `__PROP[locale]` => E.g.: “en”
+  - `__PROP[collector.date]` => E.g.: “1415975400000”
+  - 
+- `__NOW[date-format]`
+
+  Notation for a “current time” value, formatted using the given pattern (see java.text.SimpleDateFormat). “numeric” will produce a long representation.
+  
+  - `__NOW[yyyy]` => Current year, e.g. “2014”
+  - `__NOW[numeric]` => Current time as numeric value (the long representation)
+
+- `__SELF`
+  Notation for the path to the resource being edited, e.g.: `/sites/mysite/my/file.html`.
+
+- `__CONTENT_LOCALE`
+  
+  Shortcut for `__PROP[locale]` (described above).
+
+#### Example usage:
+- `%(links:href[lang=__PROP[locale])` will produce the selector:
+  - `%(links:href[lang=en])` when editing resources with locale=en
+  - `%(links:href[lang=de])` when editing resources with locale=de
+
+
+### Function-provided values
+
+A value can be provided by a custom javascript function, typically using the suggestion / info box object currently being processed to produce something useful.
+
+Your custom function should take an object and a string as arguments, and return a string:
+
+```javascript
 function myFunction(/*Object*/currentObj, /*String*/params) {
+    // do stuff
     return [a string];
 }
-Create a file named custom-functions.js in the js folder and place your function there. The widget will include this file, and any future module updates won’t overwrite its contents.
+```
+
+Create a file named `custom-functions.js` in the `js` folder and place your function there. The widget will include this file, and any future module updates won’t overwrite its contents.
 In your template, apply the function value: %(__function:myFunction).
 Similar to conditional selectors, you may also define an optional parameter string, which will be passed to the function.
 Example: %(function:myFunction[lang=__PROP[locale]&foo=bar])
