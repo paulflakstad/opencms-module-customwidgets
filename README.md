@@ -1,6 +1,6 @@
 # opencms-module-customwidgets
 
-OpenCms module containing a custom widget: The **string suggest widget**, or StringSuggestWidget, a configurable autocomplete widget.
+OpenCms module containing a custom widget: The **string suggest widget**, or StringSuggestWidget, a configurable autocomplete widget that leverages jQuery and a little underscore.js.
 
 The StringSuggestWidget is a 3rd-party OpenCms widget that offers an autocomplete feature for input fields. Intended used on structured content elements of type OpenCmsString.
 
@@ -200,16 +200,16 @@ A conditional selector can be used to target a property of a specific object in 
 
 The idea is that if we can safely assume that no objects are identical in *all of their properties*, we can single out one object by requiring certain values on its *set of properties*.
 
-Let’s take the selector %(links:href[lang=en&rel=profile]) and break it down. From left to right, it translates to: 
+Let’s take the selector `%(links:href[lang=en&rel=profile])` and break it down. From left to right, it translates to: 
 
 1. From the `links` array
 2. select the `href` property from the object
-  a. whose `lang` property is “en”, AND
-  b. whose `rel` property is “profile”
+  1. whose `lang` property is “en”, AND
+  2. whose `rel` property is “profile”
 
-2a and 2b are the "conditional statements". (2b could have been omitted here – 2a alone would have been sufficient – but is included to show the syntax whenever multiple conditional statements are needed.) They allow us to target single objects in the array.
+2.1 and 2.2 are the "conditional statements". (2.2 could have been omitted here – 2.1 alone would have been sufficient – but is included to show the syntax whenever multiple conditional statements are needed.) They allow us to target single objects in the array.
 
-Without conditional statements, we cannot target something in an array and expect anything good to come out of it. However, if the conditional statement is omitted, e.g. `%(links:href)`, then the selector will target the `href` property of the first object in the “links” array.
+Without conditional statements, we cannot target something in an array and expect anything good to come out of it. However, if the conditional statement is omitted, e.g. `%(links:href)`, then the selector will target the `href` property of the first object in the `links` array.
 
 Lastly, conditional selectors should be used only as the last part of a selector. E.g.: `%(links:href[lang=en])` will work, but `%(links:href[lang=en].someproperty)` won’t work.
 
@@ -260,34 +260,56 @@ function myFunction(/*Object*/currentObj, /*String*/params) {
 ```
 
 Create a file named `custom-functions.js` in the `js` folder and place your function there. The widget will include this file, and any future module updates won’t overwrite its contents.
-In your template, apply the function value: %(__function:myFunction).
+
+In your template, apply the function value: `%(__function:myFunction)`.
+
 Similar to conditional selectors, you may also define an optional parameter string, which will be passed to the function.
+
 Example: %(function:myFunction[lang=__PROP[locale]&foo=bar])
-Totally confused?
-The widget comes with an example function that does some console.log(...) before returning an arbitrary string. See bottom of string-suggest-widget-helpers.js and read the comments.
 
+#### Totally confused?
+The widget includes an example function that does some console logging before returning an arbitrary string. See bottom of `string-suggest-widget-helpers.js` and read the comments.
 
-Relative paths
-When referencing files in the widget configuration, you may use folder-relative URIs. These will be considered as relative to the widget module’s “resources” folder. 
-E.g.: If you provide the relative path tpl/mytemplate.tpl, it will be interpreted as /system/modules/no.npolar.opencms.widgets/resources/tpl/mytemplate.tpl.
-Module structure
-Installing this module will create a folder 
-/system/modules/no.npolar.opencms.widgets/ 
-containing all the module’s resources. 
-Subfolders overview:
-•	/lib 
-Contains a .jar file with the necessary Java classes.
-•	/resources
-Contains javascript and CSS files, inside the respective subfolders.
-•	/tpl
-Folder to place widget templates. A sample template should be included.
-•	/conf
-Folder to place widget configuration files. A sample configuration should be included.
-•	/classes
-Currently empty.
-Notes
-This widget is still in beta and very rough around the edges. 
+## Relative paths
+
+When referencing files in the widget configuration, you may use folder-relative URIs. These will be considered as relative to the widget module’s `resources` folder. 
+
+E.g.: If you provide the relative path `tpl/mytemplate.tpl`, it will be interpreted as `/system/modules/no.npolar.opencms.widgets/resources/tpl/mytemplate.tpl`.
+
+## Module structure
+
+Installing this module will create a folder `/system/modules/no.npolar.opencms.widgets/` containing all the module’s resources.
+
+### Subfolders overview:
+- `/lib`
+  
+  Contains a .jar file with the necessary Java classes.
+
+- `/resources`
+
+  Contains javascript and CSS files, inside the respective subfolders.
+  
+- `/tpl`
+
+  Folder to place widget templates. A sample template should be included.
+  
+- `/conf`
+  
+  Folder to place widget configuration files. A sample configuration should be included.
+
+- `/classes`
+
+  Currently empty.
+  
+## Notes from the author
+
+I am no expert neither on javascript or custom widgets in OpenCms. **Expect the widget to be rough around the edges.**
+
 Most notable potential issues:
-•	ADE (front-end editing) is not supported
-•	Localization is not supported
-•	Error handling and code optimization is lacking / incomplete
+- ADE (front-end editing) is not supported
+- Localization is not supported
+- Error handling and code optimization is lacking / incomplete
+
+This widget was created for a specific use-case, but I have tried to make it flexible enough to be used elsewhere as well. Its flexibility remains untested in the wild though, and I'm sure the widget is lacking in options.
+
+If you have suggestions for improvement, please let me know.
