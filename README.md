@@ -54,6 +54,7 @@ $(document).ready(function() {
       $.getScript('/system/modules/no.npolar.opencms.widgets/resources/js/underscore.min.js', function() {
         $.getScript('/system/modules/no.npolar.opencms.widgets/resources/js/string-suggest-widget-helpers.js', function() {
           $.getScript('/system/modules/no.npolar.opencms.widgets/resources/js/string-suggest-widget.js', function() {
+            // Define widget settings
             var settings = {
               uri:"https://itunes.apple.com/search"
               ,results:"%(results)"
@@ -63,6 +64,7 @@ $(document).ready(function() {
               ,tpl_info:"<div><img src=\"%(artworkUrl60)\" style=\"float:left; margin-right:1em;\" /> <p style=\"margin:0; padding:0 1em;\">%(trackName) (ID: %(trackId))<br><em>%(artistName) - %(collectionName)</em></p></div>"
               ,letters:2
             };
+            // Attach the widget to an input element (here: <input id="input-search-itunes" ... />)
             setupSuggest(JSON.stringify(settings), document.getElementById('input-search-itunes'), '');
           });
         });
