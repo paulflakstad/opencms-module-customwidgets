@@ -338,7 +338,7 @@ Installing this module will create a folder `/system/modules/no.npolar.opencms.w
 
   Currently empty.
   
-## Notes from the author
+## Author's notes
 
 I am no expert neither on javascript or custom widgets in OpenCms. **Expect the widget to be rough around the edges.**
 
