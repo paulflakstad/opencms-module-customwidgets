@@ -1,8 +1,6 @@
 # OpenCms module: Custom widgets
 
-This module currently contains 1 custom widget; The **string suggest widget**. 
-
-The string suggest widget is an OpenCms input widget that adds a suggest/autocomplete feature for string input fields. (Intended for structured content elements of type OpenCmsString.)
+This module currently contains 1 custom widget; The **string suggest widget** – an OpenCms input widget that adds a suggest/autocomplete feature for backend string input fields. (Intended for structured content elements of type OpenCmsString.)
 
 Based on [jQuery UI's Autocomplete widget](http://jqueryui.com/autocomplete/) and also leveraging a little [underscore.js](http://underscorejs.org/).
 
