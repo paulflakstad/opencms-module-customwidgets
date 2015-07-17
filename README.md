@@ -46,16 +46,28 @@ setupSuggest(/*JSONObject*/ widgetSettings, /*Element*/ inputField, '');
 ```
 ### Example:
 ```javascript
-settings = {
-	uri:"https://itunes.apple.com/search"
-	,results:"%(results)"
-	,extract:"%(trackId)"
-	,pname_query:"term"
-	,tpl_suggestion:"<a>%(trackName)<br><em>%(artistName) - %(collectionName)</em></a>"
-	,tpl_info:"<div><img src=\"%(artworkUrl60)\" style=\"float:left; margin-right:1em;\" /> <p style=\"margin:0; padding:0 1em;\">%(trackName) (ID: %(trackId))<br><em>%(artistName) - %(collectionName)</em></p></div>"
-	,letters:2
-}
-setupSuggest(JSON.stringify(myConf), document.getElementById('input-search-itunes'), '');
+$(document).ready(function() {
+    // Append css and js files
+	$('head').append('<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.min.css" type="text/css" />');
+	$.getScript('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js', function() {
+		$.getScript('/system/modules/no.npolar.opencms.widgets/resources/js/underscore.min.js', function() {
+		    $.getScript('/system/modules/no.npolar.opencms.widgets/resources/js/string-suggest-widget-helpers.js', function() {
+		        $.getScript('/system/modules/no.npolar.opencms.widgets/resources/js/string-suggest-widget.js', function() {
+		        	var settings = {
+						uri:"https://itunes.apple.com/search"
+						,results:"%(results)"
+						,extract:"%(trackId)"
+						,pname_query:"term"
+						,tpl_suggestion:"<a>%(trackName)<br><em>%(artistName) - %(collectionName)</em></a>"
+						,tpl_info:"<div><img src=\"%(artworkUrl60)\" style=\"float:left; margin-right:1em;\" /> <p style=\"margin:0; padding:0 1em;\">%(trackName) (ID: %(trackId))<br><em>%(artistName) - %(collectionName)</em></p></div>"
+						,letters:2
+					};
+		        	setupSuggest(JSON.stringify(settings), document.getElementById('input-search-itunes'), '');
+	        	});
+	    	});
+    	});
+	});
+});
 ```
 
 ## Demo
