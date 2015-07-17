@@ -23,7 +23,7 @@ Based on [jQuery UI's Autocomplete widget](http://jqueryui.com/autocomplete/) an
 
 As the user types, the widget provides on-the-fly suggestions. Suggestions are fetched from an external source; a web service that accepts queries and responds in JSONP.
 
-*If you need to use a data source that doesn't fit these requirements, consider writing a proxy. (An example proxy that wraps OpenCms site search should be included in the OpenCms module.) Using a proxy, you can use the widget as an alternative to select images, files of specific resource types, files with specific property settings etc. This may be especially useful when choosing resoruces from a large and/or unorganized set, like f.ex. if you have hundreds of images in one folder.*
+*If you need to use a data source that doesn't fit these requirements, consider writing a proxy. (An example proxy that wraps OpenCms site search should be included in the OpenCms module.) With a proxy for your CMS content, you can make your source as specific as you want to. This way, you can use the widget as an alternative tool to select images, files of a specific type, files with a specific property setting, etc. This can be useful especially when choosing resources from a large and/or unorganized set – like f.ex. if you have hundreds of images in one folder – and the default OpenCms tools are cumbersome to use.*
 
 Wanna kick the tyres? Great, go ahead! You can test it using a publicly available service, like f.ex. the [iTunes search API](https://itunes.apple.com/search?term=metallica).
 
@@ -56,6 +56,9 @@ settings = {
 }
 setupSuggest(JSON.stringify(myConf), document.getElementById('input-search-itunes'), '');
 ```
+
+## Demo
+A live-in-the-wild frontend example can be viewed at [Environmental Monitoring of Svalbard and Jan Mayen](http://www.mosj.no/en/). The data source here is the site search, which has been made "compliant" via a simple proxy.
 
 ## Installation
 
