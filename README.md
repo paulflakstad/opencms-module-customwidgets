@@ -9,6 +9,7 @@ Based on [jQuery UI's Autocomplete widget](http://jqueryui.com/autocomplete/) an
 ## On this page
 - [How it works](#works-like-this)
 - [Standalone mode (example)](#standalone-mode-example)
+- [Demo](#demo)
 - [Installation](#installation)
 - [Start using the widget](#start-using-the-widget)
 - [Configuration (settings)](#configuration)
