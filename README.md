@@ -6,7 +6,12 @@ The string suggest widget is an OpenCms input widget that adds a suggest/autocom
 
 Based on [jQuery UI's Autocomplete widget](http://jqueryui.com/autocomplete/) and also leveraging a little [underscore.js](http://underscorejs.org/).
 
-The widget can also be used standalone, outside of OpenCms.
+The widget can also be used on the frontend (i.e. on a regular web page) using the same . You need to include these files (in order):
+- jQuery UI styles `//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css`
+- jQuery `//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js`
+- jQuery UI `//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js`
+- `string-suggest-widget-helpers.js`
+- `string-suggest-widget.js`
 
 **(C) Paul-Inge Flakstad / Norwegian Polar Institute. This work is free. You can redistribute it and/or modify it, under the terms of the [WTFPL license version 2](http://www.wtfpl.net/).**
 
@@ -14,7 +19,9 @@ The widget can also be used standalone, outside of OpenCms.
 
 As the user types, the widget provides on-the-fly suggestions. Suggestions are fetched from an external source; a web service that accepts queries and responds in JSONP.
 
-If you need to use a data source that doesn't fit these requirements, consider writing a proxy. (An example proxy that wraps OpenCms site search should be included in the OpenCms module.) To test the widget, you can use a publicly available service, like the [iTunes search API](https://itunes.apple.com/search?term=metallica).
+*If you need to use a data source that doesn't fit these requirements, consider writing a proxy. (An example proxy that wraps OpenCms site search should be included in the OpenCms module.) Using a proxy, you can use the widget as an alternative to select images, files of specific resource types, files with specific property settings etc. This may be especially useful when choosing resoruces from a large and/or unorganized set, like f.ex. if you have hundreds of images in one folder.*
+
+Wanna kick the tyres? Great, go ahead! You can test it using a publicly available service, like f.ex. the [iTunes search API](https://itunes.apple.com/search?term=metallica).
 
 The data source, or “suggestions source”, is defined in the XSD where the widget is employed, as part of the widget’s configuration string. This makes the widget pluggable and interchangeable, and you can use it with a variety of data sources - only the configuration needs to change.
 
