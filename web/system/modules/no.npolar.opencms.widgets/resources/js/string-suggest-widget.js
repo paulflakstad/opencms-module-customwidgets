@@ -309,6 +309,7 @@ function initStringSuggestWidget() {
  *      ,pname_callback:"callback"
  *      ,tpl_suggestion:{ uri:"/system/modules/some.module/some-folder/suggestions.tpl" } // path is root path
  *      ,tpl_info: { uri:"tpl/info.tpl" } // path is relative to this module's "resources" folder.
+ *      ,events: { select:"functionToInvokeWhenSuggestionIsSelected" }
  * }
  * 
  * @param configuration The configuration string.
