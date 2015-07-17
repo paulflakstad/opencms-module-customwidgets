@@ -8,6 +8,19 @@ Based on [jQuery UI's Autocomplete widget](http://jqueryui.com/autocomplete/) an
 
 **(C) Paul-Inge Flakstad / Norwegian Polar Institute. This work is free. You can redistribute it and/or modify it, under the terms of the [WTFPL license version 2](http://www.wtfpl.net/).**
 
+## On this page
+- [How it works](#works-like-this)
+- [Standalone mode (example)](#standalone-mode-example)
+- [Installation](#installation)
+- [Start using the widget](#start-using-the-widget)
+- [Configuration (settings)](#configuration)
+  - [Basic selectors](#basic-selectors)
+  - [Conditional selectors - picking from arrays](#conditional-selectors--picking-from-arrays)
+  - [Dynamic values](#dynamic-values)
+  - [Function-provided values](#function-provided-values)
+- [Syntax and format](#syntax-and-format)
+- [Author's notes](#authors-notes)
+
 ## Works like this
 
 As the user types, the widget provides on-the-fly suggestions. Suggestions are fetched from an external source; a web service that accepts queries and responds in JSONP.
@@ -56,6 +69,15 @@ setupSuggest(JSON.stringify(myConf), document.getElementById('input-search-itune
   ```
 3. Restart Tomcat. (Or redeploy the OpenCms webapp, or restart your non-Tomcat servlet container.)
 4. Good to go!
+
+### Module structure
+
+Installing this module will create a folder `/system/modules/no.npolar.opencms.widgets/` containing all the module’s resources:
+- `/lib` is for a .jar file with the necessary Java classes.
+- `/resources` is for javascript and CSS files, inside the respective subfolders.
+- `/tpl` is for widget templates. A sample template should be included.
+- `/conf` is for widget configuration files. A sample configuration should be included.
+- `/classes` is currently empty.
 
 ## Start using the widget
 
@@ -306,37 +328,6 @@ Example: `%(function:myFunction[lang=__PROP[locale]&foo=bar])`
 #### Totally confused?
 
 Included with the widget should be an example function that does some console logging before returning an arbitrary string. See bottom of `string-suggest-widget-helpers.js` and read the comments.
-
-## Relative paths
-
-When referencing files in the widget configuration, you may use folder-relative URIs. These will be considered as relative to the widget module’s `resources` folder. 
-
-E.g.: If you provide the relative path `tpl/mytemplate.tpl`, it will be interpreted as `/system/modules/no.npolar.opencms.widgets/resources/tpl/mytemplate.tpl`.
-
-## Module structure
-
-Installing this module will create a folder `/system/modules/no.npolar.opencms.widgets/` containing all the module’s resources.
-
-### Subfolders overview:
-- `/lib`
-  
-  Contains a .jar file with the necessary Java classes.
-
-- `/resources`
-
-  Contains javascript and CSS files, inside the respective subfolders.
-  
-- `/tpl`
-
-  Folder to place widget templates. A sample template should be included.
-  
-- `/conf`
-  
-  Folder to place widget configuration files. A sample configuration should be included.
-
-- `/classes`
-
-  Currently empty.
   
 ## Author's notes
 
