@@ -209,7 +209,7 @@ The content of the settings file should look like the JSON in Example 1. (No XML
 Widget templates can also be defined using file references, like this:
 
 ```
-tpl_suggestion: { uri:’wtpl/my-suggestions.tpl’ }
+tpl_suggestion: { uri:’tpl/my-suggestions.tpl’ }
 ```
 
 ## Syntax and format
