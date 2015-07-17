@@ -10,8 +10,9 @@ The widget can also be used on the frontend (i.e. on a regular web page) using t
 - jQuery UI styles `//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css`
 - jQuery `//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js`
 - jQuery UI `//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js`
-- `string-suggest-widget-helpers.js`
-- `string-suggest-widget.js`
+- underscore.js `underscore-min.js`
+- String suggest widget helpers `string-suggest-widget-helpers.js`
+- String suggest widget `string-suggest-widget.js`
 
 **(C) Paul-Inge Flakstad / Norwegian Polar Institute. This work is free. You can redistribute it and/or modify it, under the terms of the [WTFPL license version 2](http://www.wtfpl.net/).**
 
