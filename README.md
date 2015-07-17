@@ -75,7 +75,7 @@ $(document).ready(function() {
 ```
 
 ## Demo
-A live-in-the-wild frontend example can be viewed at [Environmental Monitoring of Svalbard and Jan Mayen](http://www.mosj.no/en/). The data source here is the site search, which has been made "compliant" via a simple proxy.
+A live-in-the-wild frontend example can be viewed at [Environmental Monitoring of Svalbard and Jan Mayen](http://www.mosj.no/en/). It is equivalend to the above example, but its data source is the site search, which has been made available as a simple service.
 
 ## Installation
 
