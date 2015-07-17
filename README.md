@@ -6,14 +6,6 @@ The string suggest widget is an OpenCms input widget that adds a suggest/autocom
 
 Based on [jQuery UI's Autocomplete widget](http://jqueryui.com/autocomplete/) and also leveraging a little [underscore.js](http://underscorejs.org/).
 
-The widget can also be used on the frontend (i.e. on a regular web page) using the same . You need to include these files (in order):
-- jQuery UI styles `//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css`
-- jQuery `//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js`
-- jQuery UI `//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js`
-- underscore.js `underscore-min.js`
-- String suggest widget helpers `string-suggest-widget-helpers.js`
-- String suggest widget `string-suggest-widget.js`
-
 **(C) Paul-Inge Flakstad / Norwegian Polar Institute. This work is free. You can redistribute it and/or modify it, under the terms of the [WTFPL license version 2](http://www.wtfpl.net/).**
 
 ## Works like this
@@ -25,6 +17,34 @@ As the user types, the widget provides on-the-fly suggestions. Suggestions are f
 Wanna kick the tyres? Great, go ahead! You can test it using a publicly available service, like f.ex. the [iTunes search API](https://itunes.apple.com/search?term=metallica).
 
 The data source, or “suggestions source”, is defined in the XSD where the widget is employed, as part of the widget’s configuration string. This makes the widget pluggable and interchangeable, and you can use it with a variety of data sources - only the configuration needs to change.
+
+## Standalone mode (example)
+
+The widget is not strongly tied to the OpenCms backend; it works just as well on any page that includes the required scripts and styles:
+- jQuery UI styles `//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css`
+- jQuery `//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js`
+- jQuery UI `//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js`
+- underscore.js `underscore-min.js`
+- String suggest widget helpers `string-suggest-widget-helpers.js`
+- String suggest widget `string-suggest-widget.js`
+
+To enable suggestions on your input field, do this:
+```javascript
+setupSuggest(/*JSONObject*/ widgetSettings, /*Element*/ inputField, '');
+```
+### Example:
+```javascript
+settings = {
+	uri:"https://itunes.apple.com/search"
+	,results:"%(results)"
+	,extract:"%(trackId)"
+	,pname_query:"term"
+	,tpl_suggestion:"<a>%(trackName)<br><em>%(artistName) - %(collectionName)</em></a>"
+	,tpl_info:"<div><img src=\"%(artworkUrl60)\" style=\"float:left; margin-right:1em;\" /> <p style=\"margin:0; padding:0 1em;\">%(trackName) (ID: %(trackId))<br><em>%(artistName) - %(collectionName)</em></p></div>"
+	,letters:2
+}
+setupSuggest(JSON.stringify(myConf), document.getElementById('input-search-itunes'), '');
+```
 
 ## Installation
 
