@@ -115,7 +115,7 @@ When employing the widget in an XSD, configuration is always required.
 
 *Note: All folder-relative URIs given in configuration settings are considered relative to the widget module’s `resources` folder: The path `folder/myfile.ext` is equivalent to `/system/modules/no.npolar.opencms.widgets/resources/folder/myfile.ext`.*
 
-## Settings overview:
+### Settings overview:
 
 - `uri`
 
