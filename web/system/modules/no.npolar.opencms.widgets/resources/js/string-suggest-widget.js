@@ -1,22 +1,24 @@
 /**
  * A configurable widget for a string input field with suggest / autocomplete.
  * 
- * Compatibility only checked for OpenCms 9.
+ * Compatibility only checked for OpenCms 9 / Acacia editor.
  * 
- * This file should reside at:
- * /system/modules/no.npolar.opencms.widgets/resources/string_suggest_widget.js
+ * This file should typically reside at:
+ * /system/modules/no.npolar.opencms.widgets/resources/string-suggest-widget.js
  * 
  * The widget fetches suggestions by querying a web service, which must respond 
  * in JSONP. The suggestions source can be easily changed, by changing the widget 
- * configuration - different sources can be "tailored" to fit each 
- * implementation of the widget.
+ * configuration - different sources can be tailored to fit each implementation 
+ * of the widget.
+ *  
+ * Documentation: 
+ * https://github.com/paulflakstad/opencms-module-customwidgets/
  * 
- * For more info, see the widget's backing Java class (StringSuggestWidget).
+ * License: 
+ * This work is free. You can redistribute it and/or modify it, under the terms 
+ * of the WTFPL license version 2. http://www.wtfpl.net/
  * 
- * Note also the special __CONTENT_LOCALE keyword. This can be used as a dynamic 
- * value to reference the current content locale.
- * 
- * Created with much help from the OpenCms community.
+ * Created with much help from the OpenCms community. Special thanks to Kai Widmann :)
  * 
  * @author Paul-Inge Flakstad, Norwegian Polar Institute
  * @version 1.0
@@ -33,7 +35,7 @@ var nameCounter = {};
  * Creates the widget for the XML content (backend) editor and the inline 
  * (frontend) editor.
  *
- * @param configuration Configuration string from the Java class (see method getConfiguration).
+ * @param configuration Configuration string from the Java class (see StringSuggestWidget#getConfiguration).
  * @param element       If inline==true, then the DOM-Element from the preview, null otherwise.
  * @param inline        True if called from the inline (frontend) editor, false otherwise.
  *
@@ -192,7 +194,7 @@ function createStringSuggestWidget(/*String*/configuration, /*Element*/element, 
          * This function will be attached to the widget by the editor.
          *
          * It is required to call this function every time the widget value 
-         * changes. Changes that are propagated through this function won't 
+         * changes. Changes that are propagated through this function won't
          * be saved.
          */
         onChangeCommand: null,
@@ -272,10 +274,13 @@ function initStringSuggestWidget() {
  * Sets up the suggest feature.
  * 
  * The configuration string should contain: 
- *  - a URI to a service that will accept a query string and return matching results, responding in JSONP.
- *  - the identifier for what to place in the input field when a suggestion is selected
+ *  - a URI to a service that will accept a query string and return matching 
+ *      results, responding in JSONP.
+ *  - the identifier for what to place in the input field when a suggestion is 
+ *      selected
  *  - the name of the query parameter (as dictated by the service)
- *  - a template for rendering suggestions - either stored in a separate file (recommended), or defined inline (must be XML-escaped!)
+ *  - a template for rendering suggestions - either stored in a separate 
+ *      file (recommended), or defined inline (must be XML-escaped!)
  * 
  * As a basis for the example widget configurations below, consider this service: 
  * (NOTE the parameters.)
@@ -283,13 +288,16 @@ function initStringSuggestWidget() {
  * 
  * 
  * Example 1 - bare minimum: 
- * (NOTE: Queries the service using "q" as the query parameter name. Suggestions are read from a field "id" - a direct child of the response root. This will also be the extracted value.)
+ * (NOTE: Queries the service using "q" as the query parameter name. Suggestions 
+ * are read from a field "id" - a direct child of the response root. This will 
+ * also be the extracted value.)
  * {
  *      uri:"http://api.npolar.no/person/?fields=last_name,first_name,id,email&format=json&limit=30&facets=false&variant=array"
  * }
  * 
  * Example 2 - recommended minimum:
- * (NOTE: tpl_suggestion must be XML-escaped - not done here for readability purposes.)
+ * (NOTE: tpl_suggestion must be XML-escaped in XSD files - not done here for 
+ * readability purposes.)
  * {
  *      uri:"http://api.npolar.no/person/?fields=last_name,first_name,id,email&format=json&limit=30&facets=false&variant=array"
  *      ,extract:"%(email)"
@@ -298,7 +306,8 @@ function initStringSuggestWidget() {
  * }
  * 
  * Example 3 - full: 
- * (NOTE the different format in the service response: matching results are not in the root here.)
+ * (NOTE the different format in the service response: matching results are not 
+ * in the root here.)
  * {
  *      uri:"http://api.npolar.no/person/?fields=last_name,first_name,id,email&format=json&limit=50&facets=false" 
  *      ,results:"%(feed.entries)"

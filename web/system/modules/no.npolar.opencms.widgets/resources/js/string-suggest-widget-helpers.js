@@ -1,3 +1,20 @@
+/**
+ * Helper methods for the string suggest widget (string-suggest-widget.js).
+ * 
+ * This file should typically reside at:
+ * /system/modules/no.npolar.opencms.widgets/resources/string-suggest-widget-helpers.js
+ * 
+ * For more info, see the documentation: 
+ * https://github.com/paulflakstad/opencms-module-customwidgets/
+ * 
+ * License: 
+ * This work is free. You can redistribute it and/or modify it, under the terms 
+ * of the WTFPL license version 2. http://www.wtfpl.net/
+ * 
+ * @author Paul-Inge Flakstad, Norwegian Polar Institute
+ * @version 1.0
+ */
+
 /*##############################################################################
  *
  * Helper methods
@@ -171,11 +188,11 @@ function escapeRegexPattern(/*String*/ str) {
  *      item : {
  *          names: [
  *          	{
- *                  name:"Norwegian Polar Institute", --> %(item.names:name[lang=en]), because the object has lang:"en" (ref. next line)
+ *                  name:"United Nations", --> %(item.names:name[lang=en]), because the object has lang:"en" (ref. next line)
  *                  lang:"en"
  *		},
  *		{
- *                  name:"Norsk Polarinstitutt", --> NOT %(item.names:name[lang=en]), because the object does NOT have lang:"en" (ref. next line)
+ *                  name:"Forente Nasjoner", --> NOT %(item.names:name[lang=en]), because the object does NOT have lang:"en" (ref. next line)
  *                  lang:"no"
  *		}
  *          ],
