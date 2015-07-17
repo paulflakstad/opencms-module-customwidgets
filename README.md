@@ -8,11 +8,11 @@ Based on [jQuery UI's Autocomplete widget](http://jqueryui.com/autocomplete/) an
 
 ## On this page
 - [How it works](#works-like-this)
-- [Standalone mode (example)](#standalone-mode-example)
+- [Standalone mode](#standalone-mode-example)
 - [Demo](#demo)
 - [Installation](#installation)
 - [Start using the widget](#start-using-the-widget)
-- [Configuration (settings)](#configuration)
+- [Configuration / settings](#configuration)
   - [Basic selectors](#basic-selectors)
   - [Conditional selectors - picking from arrays](#conditional-selectors--picking-from-arrays)
   - [Dynamic values](#dynamic-values)
