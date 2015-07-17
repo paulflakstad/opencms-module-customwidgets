@@ -2,7 +2,7 @@
 
 This module currently contains 1 custom widget; The **string suggest widget** – an OpenCms input widget that adds a suggest/autocomplete feature for backend string input fields. (Intended for structured content elements of type OpenCmsString.)
 
-Based on [jQuery UI's Autocomplete widget](http://jqueryui.com/autocomplete/) and also leveraging a little [underscore.js](http://underscorejs.org/).
+It is an add-on to [jQuery UI's Autocomplete widget](http://jqueryui.com/autocomplete/), and leverages a little bit of [underscore.js](http://underscorejs.org/).
 
 **(C) Paul-Inge Flakstad / Norwegian Polar Institute. This work is free. You can redistribute it and/or modify it, under the terms of the [WTFPL license version 2](http://www.wtfpl.net/).**
 
