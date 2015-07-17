@@ -317,13 +317,11 @@ function myFunction(/*Object*/currentObj, /*String*/params) {
 }
 ```
 
-Create a file named `custom-functions.js` in the `js` folder and place your function there. The widget will include this file, and any future module updates won’t overwrite its contents.
+Your function should always be added to the `custom-functions.js` file, located in the `js` folder, to avoid losing stuff in future module updates. (Updates will not affect this file.)
 
 In your template, apply the function value: `%(__function:myFunction)`.
 
-Similar to conditional selectors, you may also define an optional parameter string, which will be passed to the function.
-
-Example: `%(function:myFunction[lang=__PROP[locale]&foo=bar])`
+You can also pass an optional parameter string to the function, e.g.: `%(function:myFunction[lang=__PROP[locale]&foo=bar])`
 
 #### Totally confused?
 
