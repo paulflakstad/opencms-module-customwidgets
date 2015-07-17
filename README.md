@@ -26,7 +26,7 @@ As the user types, the widget provides on-the-fly suggestions. Suggestions are f
 
 *If you need to use a data source that doesn't fit these requirements, consider writing a proxy. (An example proxy that wraps OpenCms site search should be included in the OpenCms module.) With a proxy for your CMS content, you can make your source as specific as you want to. This way, you can use the widget as an alternative tool to select images, files of a specific type, files with a specific property setting, etc. This can be useful especially when choosing resources from a large and/or unorganized set – like f.ex. if you have hundreds of images in one folder – and the default OpenCms tools are cumbersome to use.*
 
-Wanna kick the tyres? Great, go ahead! You can test it using a publicly available service, like f.ex. the [iTunes search API](https://itunes.apple.com/search?term=metallica).
+**Wanna kick the tyres?** Great! After installing, all you need to do is attach the widget to an OpenCmsString input field, and define the configuration, so that it knows where to retrieve and display suggestions. *Tip: You can use a publicly available service like the [iTunes search API](https://itunes.apple.com/search?term=metallica) or the included site search proxy as your data source.*
 
 The data source, or “suggestions source”, is defined in the XSD where the widget is employed, as part of the widget’s configuration string. This makes the widget pluggable and interchangeable, and you can use it with a variety of data sources - only the configuration needs to change.
 
