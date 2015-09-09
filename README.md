@@ -264,38 +264,50 @@ To use the widget, we must be able to reference the data in this JSON. We need s
 
 ### Basic selectors
 
-Identifies single fields, or object properties, in a non-ambiguous manner. 
+Targets a single object property, in a non-ambiguous manner. 
 
 For example, `%(email)` is a basic selector. It targets the field describing the e-mail address. Similarly, `%(image.uri)` targets the field describing the image URI.
 
-Basic selectors are the most common ones, and the most reliable ones, but they cannot be used to identify stuff in arrays, like the profile URI. E.g.: The `%(links.href)` selector matches 2 properties (= ambiguous) in each object. So, for arrays, we need a way to be more specific. That’s where conditional selectors come into play. 
+Basic selectors are the simplest ones, but they cannot be used to target stuff in arrays, like the profile URI. E.g.: The `%(links.href)` selector targets 2 properties (= ambiguous) in each object.
+
+So, we need a way to be more specific. That’s where conditional selectors come into play. 
 
 ### Conditional selectors – picking from arrays
 
-A conditional selector can be used to target a property of a specific object in an array of objects. 
+Targets a single property of a specific object in an array.
 
 The idea is that if we can safely assume that no objects are identical in *all of their properties*, we can single out one object by requiring certain values on its *set of properties*.
 
-Let’s take the selector `%(links:href[lang=en&rel=profile])` and break it down. From left to right, it translates to: 
+Let’s break down the conditional selector `%(links:href[lang=en&rel=profile])`. Left to right, it translates to: 
 
 1. From the `links` array
 2. select the `href` property from the object
   1. whose `lang` property is “en”, AND
   2. whose `rel` property is “profile”
 
-2.1 and 2.2 are the "conditional statements". (2.2 could have been omitted here – 2.1 alone would have been sufficient – but is included to show the syntax whenever multiple conditional statements are needed.) They allow us to target single objects in the array.
+2.1 and 2.2 are the "conditional statements", which allow us to target single objects in the array. (2.2 could have been omitted here – 2.1 alone would have been sufficient – but is included to show the syntax whenever multiple conditional statements are needed.)
 
-Without conditional statements, we cannot target something in an array and expect anything good to come out of it. However, if the conditional statement is omitted, e.g. `%(links:href)`, then the selector will target the `href` property of the first object in the `links` array.
+Without conditional statements, you normally shouldn't expect anything good to come out of targeting something in an array. If you use a selector like `%(links:href)` (conditional statement omitted), the selector will target the `href` property of the *first* object in the `links` array.
 
-Lastly, conditional selectors should be used only as the last part of a selector. E.g.: `%(links:href[lang=en])` will work, but `%(links:href[lang=en].someproperty)` won’t work.
+Note that conditional selectors should be used only as the *last part* of a selector. 
+- `%(links:href[lang=en])` will work
+- `%(links:href[lang=en].someproperty)` won’t work
+
 
 ### Dynamic values
 
-Dynamic values are used to create flexible selectors that uses information available in (or determined via) the resource being edited. Or by other means, like reading system information.
+Dynamic values enables composition of flexible selectors that consists (partly) of information available in (or determined via) the resource being edited – or by similar means, like reading system information.
 
-All dynamic value notations begin with a double underscore, followed by an uppercase identifier, followed (sometimes) by a parameter string wrapped in square braces.
+All dynamic value notations begin with a double underscore, followed by an all-uppercase identifier, followed (sometimes) by a parameter string wrapped in square braces.
 
-Supported dynamic values:
+#### Example usage
+
+- `%(links:href[lang=__PROP[locale])` will produce the selector:
+  - `%(links:href[lang=en])` when editing resources with locale=en
+  - `%(links:href[lang=de])` when editing resources with locale=de
+
+#### Supported dynamic values
+
 - `__PROP[property-name]`
   Notation for a property value, as read from the resource being edited (possibly inherited).
 
@@ -316,11 +328,6 @@ Supported dynamic values:
   
   Shortcut for `__PROP[locale]` (described above).
 
-#### Example usage:
-- `%(links:href[lang=__PROP[locale])` will produce the selector:
-  - `%(links:href[lang=en])` when editing resources with locale=en
-  - `%(links:href[lang=de])` when editing resources with locale=de
-
 
 ### Function-provided values
 
@@ -335,7 +342,7 @@ function myFunction(/*Object*/currentObj, /*String*/params) {
 }
 ```
 
-Your function should always be added to the `custom-functions.js` file, located in the `js` folder, to avoid losing stuff in future module updates. (Updates will not affect this file.)
+Your function should always be added to the `custom-functions.js` file, located in the `js` folder, to avoid overwrites by future module updates. (Updates will not affect this file.)
 
 In your template, apply the function value: `%(__function:myFunction)`.
 
@@ -347,7 +354,7 @@ Included with the widget should be an example function that does some console lo
   
 ## Author's notes
 
-I am no expert neither on javascript or custom widgets in OpenCms. **Expect the widget to be rough around the edges.**
+**Expect the widget to be rough around the edges.** I am not a javascript expert. I am also quite new to custom widgets in OpenCms.
 
 Most notable potential issues:
 - ADE (front-end editing) is not supported
