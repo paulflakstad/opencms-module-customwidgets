@@ -264,22 +264,27 @@ To use the widget, we must be able to reference the data in this JSON. We need s
 
 ### Basic selectors
 
-Targets a single object property, in a non-ambiguous manner. 
+Targets a single object property, in a non-ambiguous manner.
 
-For example, `%(email)` is a basic selector. It targets the field describing the e-mail address. Similarly, `%(image.uri)` targets the field describing the image URI.
+#### Example usage
+- `%(email)` targets the email address property.
+- `%(image.uri)` targets the image URI proeperty.
 
-Basic selectors are the simplest ones, but they cannot be used to target stuff in arrays, like the profile URI. E.g.: The `%(links.href)` selector targets 2 properties (= ambiguous) in each object.
-
-So, we need a way to be more specific. That’s where conditional selectors come into play. 
 
 ### Conditional selectors – picking from arrays
 
 Targets a single property of a specific object in an array.
 
-The idea is that if we can safely assume that no objects are identical in *all of their properties*, we can single out one object by requiring certain values on its *set of properties*.
+Basic selectors are insufficient when it comes to targeting stuff in arrays. For example, let's say we wanted to target the profile URI in the example. The basic selector `%(links.href)` is ambiguous; it targets 2 properties of each object. Other times, it may target not 2, but 10 or 100 properties. So which one is the actual target?
 
-Let’s break down the conditional selector `%(links:href[lang=en&rel=profile])`. Left to right, it translates to: 
+We need to be more specific, and conditional selectors provide just that.
 
+The idea is that if we can safely assume that no objects are identical in *all of their properties*, we can single out a single object by requiring specific matches on values in its total *set of properties*.
+
+#### Example usage
+- `%(links:href[lang=en&rel=profile])`
+
+In human language, this selector means:
 1. From the `links` array
 2. select the `href` property from the object
   1. whose `lang` property is “en”, AND
@@ -287,7 +292,8 @@ Let’s break down the conditional selector `%(links:href[lang=en&rel=profile])`
 
 2.1 and 2.2 are the "conditional statements", which allow us to target single objects in the array. (2.2 could have been omitted here – 2.1 alone would have been sufficient – but is included to show the syntax whenever multiple conditional statements are needed.)
 
-Without conditional statements, you normally shouldn't expect anything good to come out of targeting something in an array. If you use a selector like `%(links:href)` (conditional statement omitted), the selector will target the `href` property of the *first* object in the `links` array.
+#### Targeting objects in arrays without conditional statements
+In short, you normally shouldn't expect anything good to come out of this. It will still "work" though: If you use a selector like `%(links:href)` _(conditional statement omitted)_, the selector will target the `href` property of the *first* object in the `links` array.
 
 Note that conditional selectors should be used only as the *last part* of a selector. 
 - `%(links:href[lang=en])` will work
